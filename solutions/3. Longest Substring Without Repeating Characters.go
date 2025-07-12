@@ -1,20 +1,19 @@
-func lengthOfLongestSubstring(s string) int {
-	_map := [128]bool{}
-	length, max := 0, 0
-	for i, j := 0, 0; i < len(s); i++ {
-		index := s[i]
-		if _map[index] {
-			for ; _map[index]; j++ {
-				length--
-				_map[s[j]] = false
-			}
-		}
-
-		_map[index] = true
-		length++
-		if length > max {
-			max = length
-		}
+func Max(a, b int) int {
+	if a > b {
+		return a
 	}
-	return max
+	return b
+}
+func lengthOfLongestSubstring(s string) int {
+	dic := make(map[rune]bool)
+	var res, j int
+	for i, v := range s {
+		for dic[v] && i > j {
+			dic[rune(s[j])] = false
+			j++
+		}
+		dic[v] = true
+		res = Max(res, (i-j)+1)
+	}
+	return res
 }
