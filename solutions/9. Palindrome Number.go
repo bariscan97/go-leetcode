@@ -1,17 +1,26 @@
-func isPalindrome(x int) bool {
-	if x < 0 {
-		return false
-	}
-	if x < 10 {
-		return true
-	}
-	num := strconv.Itoa(x)
-	lenNum := len(num)
-	for i := 0; i < lenNum/2; i++ {
-		if num[i] != num[lenNum-1-i] {
-			return false
-		}
+func parse(num int) []int {
+    var arr []int 
+    for num > 0 {
+        arr = append(arr, num % 10)
+        num /= 10
+    }
+    return arr
+}
 
-	}
-	return true
+func isPali(nums []int) bool {
+    r := len(nums) -1
+    l := 0
+    for r > l {
+        if nums[r] != nums[l] {
+            return false
+        }
+        r--
+        l++
+    }
+    return true
+}
+
+func isPalindrome(x int) bool {
+    if 0 > x { return false }
+    return isPali(parse(x))
 }
